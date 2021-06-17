@@ -11,6 +11,8 @@ namespace CallBlocker.Droid
             if (state == CallState.Ringing)
             {
                 var number = incomingNumber;
+                var teste = new PhoneCallService();
+                teste.test(number);
                 // TODO check number for known contact...
             }
         }

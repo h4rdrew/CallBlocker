@@ -1,9 +1,10 @@
-﻿using System;
-
+﻿using Android;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.OS;
+using Android.Runtime;
+using AndroidX.Core.App;
 
 namespace CallBlocker.Droid
 {
@@ -17,12 +18,27 @@ namespace CallBlocker.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+
+            var permissions = new string[]
+        {
+                Manifest.Permission.ReadPhoneState,
+                Manifest.Permission.CallPhone,
+                Manifest.Permission.ModifyPhoneState,
+                Manifest.Permission.AnswerPhoneCalls
+        };
+            ActivityCompat.RequestPermissions(this, permissions, 123);
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            if (requestCode == 123 && grantResults.Length > 0 && grantResults[0] == Permission.Granted)
+            {
+                Intent serviceStart = new Intent(this, typeof(PhoneCallService));
+                this.StartService(serviceStart);
+            }
         }
     }
 }
