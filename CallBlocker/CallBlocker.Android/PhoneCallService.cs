@@ -31,15 +31,17 @@ namespace CallBlocker.Droid
             return StartCommandResult.Sticky;
         }
 
-        public void test(string number)
+        public void test(string number, Call call)
         {
+            call.Disconnect();
+
             //if (number == "6505551212")
             //{
             //    var test = (TelecomManager)base.GetSystemService(TelecomService);
             //    bool sucess = test.EndCall();
             //}
-            var test = (TelecomManager)base.GetSystemService(TelecomService);
-            bool sucess = test.EndCall();
+            //var test = (TelecomManager)base.GetSystemService(TelecomService);
+            //bool sucess = test.EndCall();
         }
     }
 }
