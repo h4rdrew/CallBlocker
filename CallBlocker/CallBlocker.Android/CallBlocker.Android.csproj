@@ -58,9 +58,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITelephony.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="PhoneCallDetector.cs" />
-    <Compile Include="PhoneCallDisconect.cs" />
+    <Compile Include="PhonecallReceiver.cs" />
     <Compile Include="PhoneCallService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

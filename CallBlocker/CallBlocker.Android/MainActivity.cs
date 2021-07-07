@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Telephony;
 using AndroidX.Core.App;
 
 namespace CallBlocker.Droid
@@ -30,14 +31,15 @@ namespace CallBlocker.Droid
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+           //Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             if (requestCode == 123 && grantResults.Length > 0 && grantResults[0] == Permission.Granted)
             {
-                Intent serviceStart = new Intent(this, typeof(PhoneCallService));
-                this.StartService(serviceStart);
+                RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
+                //Intent serviceStart = new Intent(this, typeof(PhoneCallService));
+                //this.StartService(serviceStart);
             }
         }
     }
