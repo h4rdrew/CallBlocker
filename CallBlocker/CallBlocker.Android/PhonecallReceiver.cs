@@ -23,14 +23,14 @@ namespace CallBlocker.Droid
 
         public override void OnReceive(Context context, Intent intent)
         {
+            var bla = 
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
                 if (state == TelephonyManager.ExtraStateRinging)
                 {
                     //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    CallScreeningService callScreeningService;
-                    CallScreeningService
+                    callScreeningService
                     TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
 
                     if(number == "1939333837") telecomManager.EndCall();
