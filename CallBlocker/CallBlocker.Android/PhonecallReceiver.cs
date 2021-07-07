@@ -17,7 +17,7 @@ namespace CallBlocker.Droid
 {
     [BroadcastReceiver(Enabled = true, Exported = true)]
     [IntentFilter(new[] { TelephonyManager.ActionPhoneStateChanged })]
-    public class PhonecallReceiver : BroadcastReceiver, TextToSpeech.IOnInitListener
+    public class PhonecallReceiver : BroadcastReceiver/*, TextToSpeech.IOnInitListener*/
     {
         //private ITelephony telephonyService;
 
@@ -28,9 +28,13 @@ namespace CallBlocker.Droid
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
                 if (state == TelephonyManager.ExtraStateRinging)
                 {
-                    var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+                    //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+                    CallScreeningService callScreeningService;
+                    CallScreeningService
                     TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
-                    telecomManager.EndCall();
+
+                    if(number == "1939333837") telecomManager.EndCall();
+
 
                     //TelephonyManager tm = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
 
@@ -56,9 +60,9 @@ namespace CallBlocker.Droid
             }
         }
 
-        public void OnInit([GeneratedEnum] OperationResult status)
-        {
-            throw new NotImplementedException();
-        }
+        //public void OnInit([GeneratedEnum] OperationResult status)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
