@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.h4rdrewstudios.h4rdblocker" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="30" />
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
 	<application android:label="H4RDBlocker" android:theme="@style/MainTheme"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<uses-permission android:name="android.permission.CALL_PHONE" />
 	<uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
 	<uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+	<uses-permission android:name="android.permission.BIND_SCREENING_SERVICE" />
 </manifest>

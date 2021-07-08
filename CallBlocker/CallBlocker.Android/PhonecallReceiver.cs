@@ -1,29 +1,24 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Speech.Tts;
 using Android.Telecom;
 using Android.Telephony;
-using Android.Views;
-using Android.Widget;
-using Java.Lang.Reflect;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CallBlocker.Droid
 {
+
     [BroadcastReceiver(Enabled = true, Exported = true)]
     [IntentFilter(new[] { TelephonyManager.ActionPhoneStateChanged })]
+
     public class PhonecallReceiver : BroadcastReceiver
     {
-        string manufacturer = Build.Manufacturer;
-        string model = Build.Model;
-        int version = (int)Build.VERSION.SdkInt;
-        int versionRelease = Convert.ToInt32(Build.VERSION.Release);
 
+        //string manufacturer = Build.Manufacturer;
+        //string model = Build.Model;
+        //int version = (int)Build.VERSION.SdkInt;
+        int versionRelease = Convert.ToInt32(Build.VERSION.Release);
+        CallScreeningService call;
         public override void OnReceive(Context context, Intent intent)
         {
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
@@ -31,11 +26,11 @@ namespace CallBlocker.Droid
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
                 if (state == TelephonyManager.ExtraStateRinging && versionRelease >= 9)
                 {
-                    var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
+                    //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+                    //TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
 
-                    telecomManager.EndCall();
-
+                    //telecomManager.EndCall();
+                    
                 }
 
                 if (state == TelephonyManager.ExtraStateRinging && versionRelease < 9)
