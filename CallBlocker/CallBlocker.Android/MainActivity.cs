@@ -27,6 +27,7 @@ namespace CallBlocker.Droid
                 Manifest.Permission.ModifyPhoneState,
                 Manifest.Permission.AnswerPhoneCalls
         };
+
             ActivityCompat.RequestPermissions(this, permissions, 123);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

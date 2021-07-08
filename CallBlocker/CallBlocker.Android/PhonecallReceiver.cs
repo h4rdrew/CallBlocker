@@ -17,23 +17,32 @@ namespace CallBlocker.Droid
 {
     [BroadcastReceiver(Enabled = true, Exported = true)]
     [IntentFilter(new[] { TelephonyManager.ActionPhoneStateChanged })]
-    public class PhonecallReceiver : BroadcastReceiver/*, TextToSpeech.IOnInitListener*/
+    public class PhonecallReceiver : BroadcastReceiver
     {
-        //private ITelephony telephonyService;
+        string manufacturer = Build.Manufacturer;
+        string model = Build.Model;
+        int version = (int)Build.VERSION.SdkInt;
+        int versionRelease = Convert.ToInt32(Build.VERSION.Release);
 
         public override void OnReceive(Context context, Intent intent)
         {
-            var bla = 
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
-                if (state == TelephonyManager.ExtraStateRinging)
+                if (state == TelephonyManager.ExtraStateRinging && versionRelease >= 9)
                 {
-                    //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    callScreeningService
+                    var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
                     TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
 
-                    if(number == "1939333837") telecomManager.EndCall();
+                    telecomManager.EndCall();
+
+                }
+
+                if (state == TelephonyManager.ExtraStateRinging && versionRelease < 9)
+                {
+                    //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+                    ////callScreeningService
+                    //TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
 
 
                     //TelephonyManager tm = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
@@ -59,10 +68,5 @@ namespace CallBlocker.Droid
                 }
             }
         }
-
-        //public void OnInit([GeneratedEnum] OperationResult status)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
