@@ -1,6 +1,7 @@
 # CallBlocker
+Desenvolvido em Xamarin.Forms
 
-O projeto é um App que indentifica chamadas e bloqueia de acordo com a blacklist pré-definida pelo usuário ou/e apartir de um banco de dados de números telefonicos inconvenientes, podendo ser compartilhada entre os usuários.
+O projeto é um App que identifica chamadas e bloqueia de acordo com a blacklist pré-definida pelo usuário ou/e a partir de um banco de dados de números telefônicos inconvenientes, podendo ser compartilhada entre os usuários.
 
 ## Task List
 
