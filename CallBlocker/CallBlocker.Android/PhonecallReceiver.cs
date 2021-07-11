@@ -17,8 +17,9 @@ namespace CallBlocker.Droid
         //string manufacturer = Build.Manufacturer;
         //string model = Build.Model;
         //int version = (int)Build.VERSION.SdkInt;
-        int versionRelease = Convert.ToInt32(Build.VERSION.Release);
-        CallScreeningService call;
+        decimal versionRelease = Convert.ToDecimal(Build.VERSION.Release);
+        //CallScreeningService call;
+        
         public override void OnReceive(Context context, Intent intent)
         {
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
@@ -27,14 +28,16 @@ namespace CallBlocker.Droid
                 if (state == TelephonyManager.ExtraStateRinging && versionRelease >= 9)
                 {
                     //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    //TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
-
-                    //telecomManager.EndCall();
+                    TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
+                    telecomManager.EndCall();
                     
                 }
 
                 if (state == TelephonyManager.ExtraStateRinging && versionRelease < 9)
                 {
+                    Call call = (Call)context.GetSystemService(Context.TelecomService);
+                    call.Reject(false, "");
+
                     //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
                     ////callScreeningService
                     //TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);

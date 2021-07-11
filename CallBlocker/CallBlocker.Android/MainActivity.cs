@@ -28,7 +28,8 @@ namespace CallBlocker.Droid
                 Manifest.Permission.CallPhone,
                 Manifest.Permission.ModifyPhoneState,
                 Manifest.Permission.AnswerPhoneCalls,
-                Manifest.Permission.BindScreeningService
+                Manifest.Permission.BindScreeningService,
+                Manifest.Permission.BindTelecomConnectionService
         };
 
             ActivityCompat.RequestPermissions(this, permissions, 123);
@@ -41,7 +42,7 @@ namespace CallBlocker.Droid
 
             if (requestCode == 123 && grantResults.Length > 0 && grantResults[0] == Permission.Granted)
             {
-                //RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
+                RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
 
                 //Intent serviceStart = new Intent(this, typeof(ScreeningService));
                 //StartService(serviceStart);
