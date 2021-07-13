@@ -29,7 +29,9 @@ namespace CallBlocker.Droid
                 Manifest.Permission.ModifyPhoneState,
                 Manifest.Permission.AnswerPhoneCalls,
                 Manifest.Permission.BindScreeningService,
-                Manifest.Permission.BindTelecomConnectionService
+                Manifest.Permission.BindTelecomConnectionService,
+                Manifest.Permission.ReadCallLog,
+                
         };
 
             ActivityCompat.RequestPermissions(this, permissions, 123);

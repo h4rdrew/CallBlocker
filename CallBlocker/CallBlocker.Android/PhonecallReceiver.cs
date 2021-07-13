@@ -3,6 +3,8 @@ using Android.Content;
 using Android.OS;
 using Android.Telecom;
 using Android.Telephony;
+using Android.Widget;
+using Java.Lang.Reflect;
 using System;
 
 namespace CallBlocker.Droid
@@ -18,16 +20,18 @@ namespace CallBlocker.Droid
         //string model = Build.Model;
         //int version = (int)Build.VERSION.SdkInt;
         decimal versionRelease = Convert.ToDecimal(Build.VERSION.Release);
-        //CallScreeningService call;
-        
+        private ITelephony telephonyService;
+
         public override void OnReceive(Context context, Intent intent)
         {
+            
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
-                if (state == TelephonyManager.ExtraStateRinging && versionRelease >= 9)
+                var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+
+                if (state == TelephonyManager.ExtraStateRinging && versionRelease >= 9 && number != null)
                 {
-                    //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
                     TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
                     telecomManager.EndCall();
                     
@@ -35,34 +39,26 @@ namespace CallBlocker.Droid
 
                 if (state == TelephonyManager.ExtraStateRinging && versionRelease < 9)
                 {
-                    Call call = (Call)context.GetSystemService(Context.TelecomService);
-                    call.Reject(false, "");
+                    TelephonyManager tm = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
 
-                    //var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    ////callScreeningService
-                    //TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
+                    try
+                    {
+                        Method m = tm.Class.GetDeclaredMethod("getITelephony");
 
+                        m.Accessible = true;
+                        telephonyService = (ITelephony)m.Invoke(tm);
 
-                    //TelephonyManager tm = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
+                        if (number != null)
+                        {
+                            telephonyService.EndCall();
+                            Toast.MakeText(context, "Ending the call from: " + number, ToastLength.Short).Show();
+                        }
 
-                    //try
-                    //{
-                    //    Method m = tm.Class.GetDeclaredMethod("getITelephony");
-
-                    //    m.Accessible = true;
-                    //    telephonyService = (ITelephony)m.Invoke(tm);
-
-                    //    if (number != null)
-                    //    {
-                    //        telephonyService.EndCall();
-                    //        Toast.MakeText(context, "Ending the call from: " + number, ToastLength.Short).Show();
-                    //    }
-
-                    //}
-                    //catch (Exception)
-                    //{
-                    //    throw;
-                    //}
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                 }
             }
         }

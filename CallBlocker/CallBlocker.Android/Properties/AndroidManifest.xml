@@ -8,4 +8,5 @@
 	<uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
 	<uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
 	<uses-permission android:name="android.permission.BIND_SCREENING_SERVICE" />
+	<uses-permission android:name="android.permission.READ_CALL_LOG" />
 </manifest>
