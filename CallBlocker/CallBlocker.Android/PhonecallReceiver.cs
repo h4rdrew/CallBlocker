@@ -1,10 +1,9 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Telecom;
 using Android.Telephony;
-using Android.Widget;
-using Java.Lang.Reflect;
 using System;
 
 namespace CallBlocker.Droid
@@ -20,11 +19,13 @@ namespace CallBlocker.Droid
         //string model = Build.Model;
         //int version = (int)Build.VERSION.SdkInt;
         decimal versionRelease = Convert.ToDecimal(Build.VERSION.Release);
-        private ITelephony telephonyService;
-
+        public void CallTeste(Call call)
+        {
+            call.Reject(false, "teste");
+        }
         public override void OnReceive(Context context, Intent intent)
         {
-            
+
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
@@ -34,31 +35,27 @@ namespace CallBlocker.Droid
                 {
                     TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
                     telecomManager.EndCall();
-                    
+
                 }
 
                 if (state == TelephonyManager.ExtraStateRinging && versionRelease < 9)
                 {
-                    TelephonyManager tm = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
+                    var manager = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
 
-                    try
-                    {
-                        Method m = tm.Class.GetDeclaredMethod("getITelephony");
+                    IntPtr TelephonyManager_getITelephony = JNIEnv.GetMethodID(
+                            manager.Class.Handle,
+                            "getITelephony",
+                            "()Lcom/android/internal/telephony/ITelephony;");
 
-                        m.Accessible = true;
-                        telephonyService = (ITelephony)m.Invoke(tm);
-
-                        if (number != null)
-                        {
-                            telephonyService.EndCall();
-                            Toast.MakeText(context, "Ending the call from: " + number, ToastLength.Short).Show();
-                        }
-
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
+                    IntPtr telephony = JNIEnv.CallObjectMethod(manager.Handle, TelephonyManager_getITelephony);
+                    IntPtr ITelephony_class = JNIEnv.GetObjectClass(telephony);
+                    IntPtr ITelephony_endCall = JNIEnv.GetMethodID(
+                            ITelephony_class,
+                            "endCall",
+                            "()Z");
+                    JNIEnv.CallBooleanMethod(telephony, ITelephony_endCall);
+                    JNIEnv.DeleteLocalRef(telephony);
+                    JNIEnv.DeleteLocalRef(ITelephony_class);
                 }
             }
         }
