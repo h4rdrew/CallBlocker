@@ -6,8 +6,8 @@ O projeto é um App que identifica chamadas e bloqueia de acordo com a blacklist
 ## Task List
 
 - [x] Separar o App por versões
-- [ ] Identificar uma ligação
-- [ ] Bloquear uma ligação
+- [x] Identificar uma ligação
+- [x] Bloquear uma ligação
 - [ ] Criar uma Blacklist
 - [ ] Inserir um BD de números inconvenientes
 - [ ] Permitir compartilhar números da Blacklist entre usuários
