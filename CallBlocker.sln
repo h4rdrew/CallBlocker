@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallBlocker.Android", "CallBlocker\CallBlocker.Android\CallBlocker.Android.csproj", "{558088C1-15DB-4425-9743-5A49C218AC39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallBlocker", "CallBlocker\CallBlocker\CallBlocker.csproj", "{81EB9AD1-4CD0-4AA1-B3B8-734996FC7E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CallBlocker", "CallBlocker\CallBlocker\CallBlocker.csproj", "{81EB9AD1-4CD0-4AA1-B3B8-734996FC7E4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallBlocker.Lib", "CallBlocker.Lib\CallBlocker.Lib.csproj", "{D3DB2C3D-1998-451A-8384-80BB4C362350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{81EB9AD1-4CD0-4AA1-B3B8-734996FC7E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81EB9AD1-4CD0-4AA1-B3B8-734996FC7E4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81EB9AD1-4CD0-4AA1-B3B8-734996FC7E4B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D3DB2C3D-1998-451A-8384-80BB4C362350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3DB2C3D-1998-451A-8384-80BB4C362350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3DB2C3D-1998-451A-8384-80BB4C362350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3DB2C3D-1998-451A-8384-80BB4C362350}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

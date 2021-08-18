@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using CallBlocker.Lib.DTO_WhiteList;
 
 namespace CallBlocker
 {
@@ -13,6 +14,12 @@ namespace CallBlocker
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void btnWhitList_Clicked(object sender, EventArgs e)
+        {
+            var number = new NumberWhiteList();
+            number.Number = tbxWhiteListNumber.Text;
         }
     }
 }

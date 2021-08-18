@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CallBlocker.MainPage">
+             x:Class="CallBlocker.MainPage" BackgroundColor="#191919">
 
-    <StackLayout>
-        <Label Text="Digite um número para bloquear:"></Label>
-        
-        <Button Text="Adicionar o número" />
+    <StackLayout BackgroundColor="#191919">
+        <Label Text="Digite um número para WhiteList:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="White"/>
+        <FlexLayout>
+            <Entry x:Name="tbxWhiteListNumber" HorizontalTextAlignment="Center" Keyboard="Telephone" TextColor="White" FontAttributes="Bold" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Button Text="+" Clicked="btnWhitList_Clicked" FontAttributes="Bold" FontSize="35" TextColor="White" BackgroundColor="#090909" Scale="0.5"/>
+        </FlexLayout>
     </StackLayout>
-
 </ContentPage>
