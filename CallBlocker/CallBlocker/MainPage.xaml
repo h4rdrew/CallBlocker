@@ -5,9 +5,7 @@
 
     <StackLayout BackgroundColor="#191919">
         <Label Text="Digite um número para WhiteList:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="White"/>
-        <FlexLayout>
-            <Entry x:Name="tbxWhiteListNumber" HorizontalTextAlignment="Center" Keyboard="Telephone" TextColor="White" FontAttributes="Bold" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Button Text="+" Clicked="btnWhitList_Clicked" FontAttributes="Bold" FontSize="35" TextColor="White" BackgroundColor="#090909" Scale="0.5"/>
-        </FlexLayout>
+        <Entry x:Name="tbxWhiteListNumber" HorizontalTextAlignment="Center" Keyboard="Telephone" TextColor="White" FontAttributes="Bold" FontSize="30"/>
+        <Button Text="+" Clicked="btnWhitList_Clicked" FontAttributes="Bold" FontSize="35" TextColor="White" BackgroundColor="#090909"/>
     </StackLayout>
 </ContentPage>

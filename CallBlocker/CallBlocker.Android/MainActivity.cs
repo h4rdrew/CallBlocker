@@ -29,6 +29,8 @@ namespace CallBlocker.Droid
                 Manifest.Permission.BindScreeningService,
                 Manifest.Permission.BindTelecomConnectionService,
                 Manifest.Permission.ReadCallLog,
+                Manifest.Permission.WriteExternalStorage,
+                Manifest.Permission.ReadExternalStorage,
                 
         };
 

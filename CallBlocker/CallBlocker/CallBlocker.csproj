@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CallBlocker.DA\CallBlocker.DA.csproj" />
     <ProjectReference Include="..\..\CallBlocker.Lib\CallBlocker.Lib.csproj" />
   </ItemGroup>
 </Project>
