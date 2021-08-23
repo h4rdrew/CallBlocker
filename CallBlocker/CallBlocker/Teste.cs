@@ -15,7 +15,7 @@ namespace CallBlocker
         }
         public void TesteWhite(string numero)
         {
-            _db.WhiteList.AddNumber_WhiteList(numero, "teste");
+            _db.WhiteList.AddNumber_WhiteList(numero);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace CallBlocker.DA.Database.DadosNumeros
             this.DB = DB;
             DB.CreateTables().Add<WhiteList_Model_DA>().Commit();
         }
-        public void AddNumber_WhiteList(string number, string name)
+        public void AddNumber_WhiteList(string number)
         {
             throw new NotImplementedException();
         }

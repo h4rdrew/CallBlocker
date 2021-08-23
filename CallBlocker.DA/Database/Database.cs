@@ -1,4 +1,5 @@
-﻿using CallBlocker.Lib.Interfaces;
+﻿using Android.Content;
+using CallBlocker.Lib.Interfaces;
 using CallBlocker.Lib.Interfaces.DadosNumeros;
 using Simple.Sqlite;
 using System.IO;
@@ -11,6 +12,7 @@ namespace CallBlocker.DA.Database
         private SqliteDB db;
         public Database(string dbPath)
         {
+            
             var fileInfo = new FileInfo(dbPath);
             if (!fileInfo.Directory.Exists) fileInfo.Directory.Create();
             this.dbPath = dbPath;

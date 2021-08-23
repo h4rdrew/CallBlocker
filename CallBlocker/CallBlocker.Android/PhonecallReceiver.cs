@@ -5,7 +5,6 @@ using Android.Runtime;
 using Android.Telecom;
 using Android.Telephony;
 using System;
-using CallBlocker.Lib.DTO_WhiteList;
 
 namespace CallBlocker.Droid
 {
@@ -21,7 +20,6 @@ namespace CallBlocker.Droid
         int version = (int)Build.VERSION.SdkInt;
         public override void OnReceive(Context context, Intent intent)
         {
-            
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);

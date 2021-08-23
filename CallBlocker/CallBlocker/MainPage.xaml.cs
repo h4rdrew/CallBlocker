@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using CallBlocker.Lib.DTO_WhiteList;
 using CallBlocker.Lib.Interfaces;
 using System.IO;
 using CallBlocker.DA.Database;
+using Android.Content;
 
 namespace CallBlocker
 {
@@ -20,8 +20,10 @@ namespace CallBlocker
         }
         private IDatabase getDatabase()
         {
-            var filepath = Path.Combine("BancoTeste", "BancoTeste.db");
-            var db = new Database(filepath);
+            Context context = Android.App.Application.Context;
+            var filePath = context.GetExternalFilesDir("BancoTeste.db").ToString();
+            //var filepath = Path.Combine(filePath.ToString(), "BancoTeste.db");
+            var db = new Database(filePath);
             return db;
         }
         private void btnWhitList_Clicked(object sender, EventArgs e)

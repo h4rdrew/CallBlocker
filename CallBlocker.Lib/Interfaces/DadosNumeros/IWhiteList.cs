@@ -6,6 +6,6 @@ namespace CallBlocker.Lib.Interfaces.DadosNumeros
 {
     public interface IWhiteList
     {
-        void AddNumber_WhiteList(string number, string name);
+        void AddNumber_WhiteList(string number);
     }
 }
