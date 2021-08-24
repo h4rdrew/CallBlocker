@@ -92,10 +92,6 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CallBlocker.Lib\CallBlocker.Lib.csproj">
-      <Project>{d3db2c3d-1998-451a-8384-80bb4c362350}</Project>
-      <Name>CallBlocker.Lib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CallBlocker\CallBlocker.csproj">
       <Project>{FEC6A32D-3636-4DEE-9CD7-7899DEB7905C}</Project>
       <Name>CallBlocker</Name>

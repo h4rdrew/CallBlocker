@@ -5,7 +5,6 @@ using Android.Runtime;
 using Android.Telecom;
 using Android.Telephony;
 using System;
-using CallBlocker.Lib.DTO_WhiteList;
 
 namespace CallBlocker.Droid
 {
