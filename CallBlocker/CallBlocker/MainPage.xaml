@@ -7,5 +7,15 @@
         <Label Text="Digite um número para WhiteList:" FontSize="Medium" HorizontalTextAlignment="Center" TextColor="White"/>
         <Entry x:Name="tbxWhiteListNumber" HorizontalTextAlignment="Center" Keyboard="Telephone" TextColor="White" FontAttributes="Bold" FontSize="30"/>
         <Button Text="+" Clicked="btnWhitList_Clicked" FontAttributes="Bold" FontSize="35" TextColor="White" BackgroundColor="#090909"/>
+        <CollectionView x:Name="collectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Number}"
+                               FontSize="Medium" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
 </ContentPage>

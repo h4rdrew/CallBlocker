@@ -22,16 +22,13 @@ namespace CallBlocker.Droid
 
             var permissions = new string[]
         {
-                Manifest.Permission.ReadPhoneState,
-                Manifest.Permission.CallPhone,
-                Manifest.Permission.ModifyPhoneState,
-                Manifest.Permission.AnswerPhoneCalls,
-                Manifest.Permission.BindScreeningService,
-                Manifest.Permission.BindTelecomConnectionService,
-                Manifest.Permission.ReadCallLog,
-                Manifest.Permission.WriteExternalStorage,
-                Manifest.Permission.ReadExternalStorage,
-                
+                Manifest.Permission.ReadPhoneState, // Requer em Android 6 (Api 23)
+                Manifest.Permission.CallPhone, // Requer em Android 6 (Api 23)
+                Manifest.Permission.AnswerPhoneCalls, // Requer em Android 9 (Api 28)
+                //Manifest.Permission.ModifyPhoneState,
+                //Manifest.Permission.ReadCallLog,
+                //Manifest.Permission.BindScreeningService,
+                //Manifest.Permission.BindTelecomConnectionService, 
         };
 
             ActivityCompat.RequestPermissions(this, permissions, 123);

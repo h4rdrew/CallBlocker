@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using CallBlocker.Lib.Interfaces;
-using System.IO;
-using CallBlocker.DA.Database;
-using Android.Content;
 
 namespace CallBlocker
 {
@@ -17,19 +8,24 @@ namespace CallBlocker
         public MainPage()
         {
             InitializeComponent();
+            AtualizaLista();
         }
-        private IDatabase getDatabase()
+        async void btnWhitList_Clicked(object sender, EventArgs e)
         {
-            Context context = Android.App.Application.Context;
-            var filePath = context.GetExternalFilesDir("BancoTeste.db").ToString();
-            //var filepath = Path.Combine(filePath.ToString(), "BancoTeste.db");
-            var db = new Database(filePath);
-            return db;
+            if (!string.IsNullOrWhiteSpace(tbxWhiteListNumber.Text))
+            {
+                await App.Database.SaveNumberAsync(new WhiteList
+                {
+                    Number = tbxWhiteListNumber.Text,
+                });
+
+                tbxWhiteListNumber.Text = string.Empty;
+                AtualizaLista();
+            }
         }
-        private void btnWhitList_Clicked(object sender, EventArgs e)
+        async void AtualizaLista()
         {
-            var teste = new Teste(getDatabase());
-            teste.TesteWhite(tbxWhiteListNumber.Text);
+            collectionView.ItemsSource = await App.Database.GetNumberAsync();
         }
     }
 }

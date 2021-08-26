@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Telecom;
 using Android.Telephony;
 using System;
+using System.Collections.Generic;
 
 namespace CallBlocker.Droid
 {
@@ -20,36 +21,54 @@ namespace CallBlocker.Droid
         int version = (int)Build.VERSION.SdkInt;
         public override void OnReceive(Context context, Intent intent)
         {
+            //var numbersWhiteList = ChecaNumerosWhiteList();
+
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
-                var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+                var incomingNumber = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
 
-                if (state == TelephonyManager.ExtraStateRinging && version >= 28 && number != "+16505556789")
+                var bloquearChamada = NumeroWhiteList(incomingNumber);
+
+                if (bloquearChamada)
                 {
-                    TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
-                    telecomManager.EndCall();
+                    if (state == TelephonyManager.ExtraStateRinging && version >= 28)
+                    {
+                        TelecomManager telecomManager = (TelecomManager)context.GetSystemService(Context.TelecomService);
+                        telecomManager.EndCall();
+                    }
 
-                }
+                    if (state == TelephonyManager.ExtraStateRinging && version <= 27)
+                    {
+                        var manager = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
 
-                if (state == TelephonyManager.ExtraStateRinging && version <= 27 && number != "+16505556789")
-                {
-                    var manager = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
+                        IntPtr TelephonyManager_getITelephony = JNIEnv.GetMethodID(manager.Class.Handle,
+                                                                                   "getITelephony",
+                                                                                   "()Lcom/android/internal/telephony/ITelephony;");
 
-                    IntPtr TelephonyManager_getITelephony = JNIEnv.GetMethodID(manager.Class.Handle,
-                                                                               "getITelephony",
-                                                                               "()Lcom/android/internal/telephony/ITelephony;");
+                        IntPtr telephony = JNIEnv.CallObjectMethod(manager.Handle, TelephonyManager_getITelephony);
+                        IntPtr ITelephony_class = JNIEnv.GetObjectClass(telephony);
+                        IntPtr ITelephony_endCall = JNIEnv.GetMethodID(ITelephony_class,
+                                                                       "endCall", "()Z");
 
-                    IntPtr telephony = JNIEnv.CallObjectMethod(manager.Handle, TelephonyManager_getITelephony);
-                    IntPtr ITelephony_class = JNIEnv.GetObjectClass(telephony);
-                    IntPtr ITelephony_endCall = JNIEnv.GetMethodID(ITelephony_class,
-                                                                   "endCall", "()Z");
-
-                    JNIEnv.CallBooleanMethod(telephony, ITelephony_endCall);
-                    JNIEnv.DeleteLocalRef(telephony);
-                    JNIEnv.DeleteLocalRef(ITelephony_class);
+                        JNIEnv.CallBooleanMethod(telephony, ITelephony_endCall);
+                        JNIEnv.DeleteLocalRef(telephony);
+                        JNIEnv.DeleteLocalRef(ITelephony_class);
+                    }
                 }
             }
+        }
+        public bool NumeroWhiteList(string incomingNumber)
+        {
+            var dataBase = App.Database.GetNumberAsync();
+            var numbersWhiteList = dataBase.Result;
+
+            for (int i = 0; i < numbersWhiteList.Count; i++)
+            {
+                if (incomingNumber == numbersWhiteList[i].Number) return false;
+            }
+
+            return true;
         }
     }
 }
