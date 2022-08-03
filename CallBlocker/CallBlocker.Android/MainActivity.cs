@@ -41,7 +41,7 @@ namespace CallBlocker.Droid
             StartActivityForResult(intent, REQUEST_ID);
 
         }
-        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [Android.Runtime.GeneratedEnum] Permission[] grantResults)
         //{
         //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
