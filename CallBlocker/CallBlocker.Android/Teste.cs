@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.App.Roles;
 using Android.Telecom;
-using Android.Telephony;
 using Android.Util;
 
 namespace com.h4rdrewstudios.h4rdblocker
@@ -24,13 +23,23 @@ namespace com.h4rdrewstudios.h4rdblocker
 
             CallResponse.Builder response = new CallResponse.Builder();
 
-            response.SetDisallowCall(false);
-            response.SetRejectCall(false);
             response.SetSilenceCall(false);
             response.SetSkipCallLog(false);
             response.SetSkipNotification(false);
 
-            callDetails.GetHandle();
+            var uriFuckThisShit = callDetails.GetHandle();
+
+            if (uriFuckThisShit.ToString().Contains("123"))
+            {
+                response.SetRejectCall(true);
+                response.SetDisallowCall(true);
+            }
+            else
+            {
+                response.SetDisallowCall(false);
+                response.SetRejectCall(false);
+            }
+
             RespondToCall(callDetails, response.Build());
         }
     }
