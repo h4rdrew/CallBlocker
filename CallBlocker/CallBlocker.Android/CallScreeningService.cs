@@ -12,7 +12,7 @@ namespace com.h4rdrewstudios.h4rdblocker
         // Talvez precise solicitar acesso via UI
         //  https://developer.android.com/reference/android/telecom/CallScreeningService#becoming-the-callscreeningservice
 
-        public override void OnScreenCall(Call.Details callDetails)
+        public async override void OnScreenCall(Call.Details callDetails)
         {
             Log.Info("Phone number", callDetails.GetHandle().ToString());
 
@@ -23,21 +23,25 @@ namespace com.h4rdrewstudios.h4rdblocker
 
             CallResponse.Builder response = new CallResponse.Builder();
 
-            response.SetSilenceCall(false);
-            response.SetSkipCallLog(false);
-            response.SetSkipNotification(false);
+            response.SetSilenceCall(false)
+                    .SetSkipCallLog(false)
+                    .SetSkipNotification(false);
 
             var callUri = callDetails.GetHandle();
+            // "(650) 555-0123"
+            // => "tel:6505550123"
 
-            if (callUri.ToString().Contains("123")) // block numbers with "123"
-            {
-                response.SetRejectCall(true);
-                response.SetDisallowCall(true);
-            }
-            else
+            var permite = await CallBlocker.Droid.NumberManager.NumeroPresenteWhiteListAsync(callUri.EncodedSchemeSpecificPart);
+
+            if (permite) // block numbers with "123"
             {
                 response.SetDisallowCall(false);
                 response.SetRejectCall(false);
+            }
+            else
+            {
+                response.SetRejectCall(true);
+                response.SetDisallowCall(true);
             }
 
             RespondToCall(callDetails, response.Build());
