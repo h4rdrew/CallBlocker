@@ -7,7 +7,7 @@
 	<uses-permission android:name="android.permission.BIND_SCREENING_SERVICE" />
 	<application android:label="H4RDBlocker" android:theme="@style/MainTheme">
 
-		<service android:name="CallBlocker.Droid.MyCallService"
+		<service android:name="com.h4rdrewstudios.h4rdblocker.CallScreeningService"
 			  android:permission="android.permission.BIND_SCREENING_SERVICE">
 			<intent-filter>
 				<action android:name="android.telecom.CallScreeningService"/>

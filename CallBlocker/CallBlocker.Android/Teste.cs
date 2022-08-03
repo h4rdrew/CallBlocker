@@ -1,10 +1,13 @@
-﻿using Android.Telecom;
+﻿using Android.App;
+using Android.App.Roles;
+using Android.Telecom;
+using Android.Telephony;
 using Android.Util;
 
-namespace CallBlocker.Droid
+namespace com.h4rdrewstudios.h4rdblocker
 {
-    //[IntentFilter(new[] { TelephonyManager.ActionPhoneStateChanged })]
-    public class MyCallService : CallScreeningService
+    [IntentFilter(new[] { RoleManager.RoleCallScreening })]
+    public class CallScreeningService : Android.Telecom.CallScreeningService
     {
         // https://developer.android.com/reference/android/telecom/CallScreeningService
         // Talvez precise solicitar acesso via UI
