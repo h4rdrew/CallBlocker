@@ -27,9 +27,9 @@ namespace com.h4rdrewstudios.h4rdblocker
             response.SetSkipCallLog(false);
             response.SetSkipNotification(false);
 
-            var uriFuckThisShit = callDetails.GetHandle();
+            var callUri = callDetails.GetHandle();
 
-            if (uriFuckThisShit.ToString().Contains("123"))
+            if (callUri.ToString().Contains("123")) // block numbers with "123"
             {
                 response.SetRejectCall(true);
                 response.SetDisallowCall(true);

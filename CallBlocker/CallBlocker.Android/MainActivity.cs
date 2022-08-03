@@ -4,18 +4,17 @@ using Android.App.Roles;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using AndroidX.Core.App;
 
 namespace CallBlocker.Droid
 {
-    [Activity(Icon = "@mipmap/icon", 
-              Theme = "@style/MainTheme", 
-              MainLauncher = true, 
-              ConfigurationChanges = ConfigChanges.ScreenSize | 
-                                     ConfigChanges.Orientation | 
+    [Activity(Icon = "@mipmap/icon",
+              Theme = "@style/MainTheme",
+              MainLauncher = true,
+              ConfigurationChanges = ConfigChanges.ScreenSize |
+                                     ConfigChanges.Orientation |
                                      ConfigChanges.UiMode |
-                                     ConfigChanges.ScreenLayout | 
+                                     ConfigChanges.ScreenLayout |
                                      ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
@@ -28,15 +27,12 @@ namespace CallBlocker.Droid
             LoadApplication(new App());
 
             var permissions = new string[]
-        {
+            {
                 Manifest.Permission.ReadPhoneState, // Requer em Android 6 (Api 23)
                 Manifest.Permission.CallPhone, // Requer em Android 6 (Api 23)
                 Manifest.Permission.AnswerPhoneCalls, // Requer em Android 9 (Api 28)
-                //Manifest.Permission.ModifyPhoneState,
-                //Manifest.Permission.ReadCallLog,
                 Manifest.Permission.BindScreeningService,
-                //Manifest.Permission.BindTelecomConnectionService,
-        };
+            };
 
             ActivityCompat.RequestPermissions(this, permissions, 123);
 
@@ -45,16 +41,15 @@ namespace CallBlocker.Droid
             StartActivityForResult(intent, REQUEST_ID);
 
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        //{
+        //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            if (requestCode == 123 && grantResults.Length > 0 && grantResults[0] == Permission.Granted)
-            {
-                //RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
-                
-            }
-        }
+        //    if (requestCode == 123 && grantResults.Length > 0 && grantResults[0] == Permission.Granted)
+        //    {
+        //        //RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
+        //    }
+        //}
 
         private const int REQUEST_ID = 1;
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
