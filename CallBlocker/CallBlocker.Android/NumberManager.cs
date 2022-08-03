@@ -26,7 +26,6 @@ namespace CallBlocker.Droid
             if (incomingNumber == lista) return true;
             // incoming TEM +55DDD e o lista não
             if (incomingNumber.EndsWith(lista)) return true;
-
             // lista TEM +55DDD e o incoming não
             if (lista.EndsWith(incomingNumber)) return true;
 
