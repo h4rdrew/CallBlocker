@@ -12,7 +12,8 @@
                 <DataTemplate>
                     <StackLayout>
                         <Label Text="{Binding Number}"
-                               FontSize="Medium" />
+                               FontSize="Medium"
+                               TextColor="White"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

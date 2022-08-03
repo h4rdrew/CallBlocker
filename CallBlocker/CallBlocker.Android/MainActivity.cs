@@ -1,15 +1,22 @@
 ﻿using Android;
 using Android.App;
+using Android.App.Roles;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Android.Telephony;
 using AndroidX.Core.App;
 
 namespace CallBlocker.Droid
 {
-    [Activity(Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+    [Activity(Icon = "@mipmap/icon", 
+              Theme = "@style/MainTheme", 
+              MainLauncher = true, 
+              ConfigurationChanges = ConfigChanges.ScreenSize | 
+                                     ConfigChanges.Orientation | 
+                                     ConfigChanges.UiMode |
+                                     ConfigChanges.ScreenLayout | 
+                                     ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -27,11 +34,16 @@ namespace CallBlocker.Droid
                 Manifest.Permission.AnswerPhoneCalls, // Requer em Android 9 (Api 28)
                 //Manifest.Permission.ModifyPhoneState,
                 //Manifest.Permission.ReadCallLog,
-                //Manifest.Permission.BindScreeningService,
-                //Manifest.Permission.BindTelecomConnectionService, 
+                Manifest.Permission.BindScreeningService,
+                //Manifest.Permission.BindTelecomConnectionService,
         };
 
             ActivityCompat.RequestPermissions(this, permissions, 123);
+
+            var roleManager = (RoleManager)GetSystemService(Context.RoleService);
+            var intent = roleManager.CreateRequestRoleIntent(RoleManager.RoleCallScreening);
+            StartActivityForResult(intent, REQUEST_ID);
+
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
@@ -39,8 +51,26 @@ namespace CallBlocker.Droid
 
             if (requestCode == 123 && grantResults.Length > 0 && grantResults[0] == Permission.Granted)
             {
-                RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
+                //RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
+                
             }
+        }
+
+        private const int REQUEST_ID = 1;
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            if (requestCode == REQUEST_ID)
+            {
+                if (resultCode == Result.Ok)
+                {
+                    // Your app is now the call screening app
+                }
+                else
+                {
+                    // Your app is not the call screening app
+                }
+            }
+            base.OnActivityResult(requestCode, resultCode, data);
         }
     }
 }

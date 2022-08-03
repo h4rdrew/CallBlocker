@@ -12,21 +12,23 @@ namespace CallBlocker.Droid
 
     [BroadcastReceiver(Enabled = true, Exported = true)]
     [IntentFilter(new[] { TelephonyManager.ActionPhoneStateChanged })]
-    public class PhonecallReceiver : BroadcastReceiver
+    public class PhonecallReceiver //: BroadcastReceiver
     {
 
         //string manufacturer = Build.Manufacturer;
         //string model = Build.Model;
         //decimal versionRelease = Convert.ToDecimal(Build.VERSION.Release);
         int version = (int)Build.VERSION.SdkInt;
-        public override void OnReceive(Context context, Intent intent)
+        public void OnReceive_OLD(Context context, Intent intent)
         {
+            TelephonyManager telephony2 = (TelephonyManager)context.GetSystemService(Context.TelephonyService);
             //var numbersWhiteList = ChecaNumerosWhiteList();
 
             if (intent.Action == TelephonyManager.ActionPhoneStateChanged)
             {
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
                 var incomingNumber = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
+                var teste = intent.GetStringExtra(TelecomManager.ExtraCallBackNumber);
 
                 var bloquearChamada = NumeroWhiteList(incomingNumber);
 
